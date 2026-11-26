@@ -535,3 +535,73 @@ public class Application {
 
 Process finished with exit code 0
 ```
+
+### ✅ What are Auto-Configuration Classes? ✅
+- Pre-written Spring configurations
+  – org.springframework.boot.autoconfigure package
+  – See spring-boot-autoconfigure JAR file
+- Best place to check what they exactly do
+
+```java
+@AutoConfiguration
+...
+public class DataSourceAutoConfiguration {
+    ...
+                        ┌────────────────────┐
+                        │ Auto-configure     │
+                        │ DataSource bean    │
+                        │ only if it is not  │
+                        │ already configured │
+                        └────────────────────┘
+    @Conditional(...)           \/ 
+    @ConditionalOnMissingBean(DataSource.class, ..)
+    @Import({EmbeddedDataSourceConfiguration.class})
+    protected static class EmbeddedDatabaseConfiguration { ... }
+    ...
+}
+```
+
+ℹ️ Spring Boot defines many of these configurations. They 
+   activate in response to dependencies on the classpath
+
+### ✅ Where are these Auto-Configuration classes specified? ✅
+- @EnableAutoConfiguration processes autoconfiguration:
+  – @AutoConfiguration annotation specifies a class explicitly for autoconfiguration
+  – spring-boot-autoconfigure/META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+  
+- AutoConfiguration classes used by Spring Boot.
+  – May be overridden 
+  
+- Auto-configuration classes processed after explicitly created beans are defined
+  – Beans you define always take precedence over AutoConfiguration
+
+#### 💡 Nota técnica clave para tu examen (Spring Boot 2.7.5):
+Este slide muestra un cambio histórico importantísimo en el framework. 
+En versiones anteriores (como Spring Boot 2.6 hacia atrás), las autoconfiguraciones se registraban en un archivo llamado spring.factories. 
+A partir de Spring Boot 2.7, se utiliza el nuevo archivo empaquetado dentro del JAR que se menciona en el slide: org.springframework.boot.autoconfigure.AutoConfiguration.imports. Es una pregunta fija de examen sobre la arquitectura del framework.
+
+### ✅ Override Default Configuration ✅
+Controlling Spring Boot Auto-Configuration
+
+- Spring Boot is designed to make overriding easy
+
+- There are several options
+  1. Set some of Spring Boot's properties
+  2. Explicitly define beans yourself so Spring Boot won't
+  3. Explicitly disable some auto-configuration
+  4. Change dependencies or their versions
+
+### ✅ Summary ✅
+- Properties can be set in application.properties / yml
+
+- @ConfigurationProperties simplifies handling of large # of properties
+
+- Spring Boot auto-configuration is enabled by @EnableAutoConfiguration
+
+- Spring Boot auto-configuration is managed by a set of auto-configuration classes, which uses @Conditional's
+
+- AutoConfiguration can be controlled by
+  1. Properties
+  2. Explicit bean definition
+  3. Disabling of auto configuration
+  4. Altering dependency versions

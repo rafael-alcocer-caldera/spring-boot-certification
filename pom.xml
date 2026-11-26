@@ -31,7 +31,7 @@
     </build>
 
     <modules>
-        <!-- tus módulos aquí -->
         <module>spring-boot-autoconfiguration</module>
+        <module>spring-boot-conditionals</module>
     </modules>
 </project>
