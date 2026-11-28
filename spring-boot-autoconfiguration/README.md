@@ -1,5 +1,5 @@
 # 🛠 🚀 Spring Boot Certification 🚀 🛠
-Exercises for Spring Certified Professional
+Exercises for Spring Certified Professional 2024 [v2]
 
 ## ✅ Autoconfiguration ✅
 We are using Maven for these exercises, of course you can do it in Gradle.
